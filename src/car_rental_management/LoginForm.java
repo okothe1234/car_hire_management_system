@@ -4,10 +4,14 @@
  */
 package car_rental_management;
 
+import java.awt.Color;
+import static java.awt.Color.yellow;
 import java.awt.Image;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 /**
  *
@@ -20,43 +24,30 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         
-    initComponents();
+   initComponents();
     this.setLocationRelativeTo(null);
-    
-    //load images
-    ImageIcon logoIcon = new ImageIcon(getClass().getResource("images/lambo.jpeg"));
-    ImageIcon usernameIcon = new ImageIcon(getClass().getResource("images/username.jpeg"));
-    ImageIcon passwordIcon = new ImageIcon(getClass().getResource("images/password.jpeg"));
-    
-    //create Jlabels and set images 
-    JLabel logoLabel = new JLabel(logoIcon);
-    JLabel usernameLabel = new JLabel(usernameIcon);
-    JLabel passwordLabel = new JLabel(passwordIcon); 
-    
-    // Set label properties to allow automatic resizing
-    logoLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the image within the label
-    logoLabel.setVerticalAlignment(SwingConstants.CENTER);
-    
-    usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    usernameLabel.setVerticalAlignment(SwingConstants.CENTER);
-    
-    passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    passwordLabel.setVerticalAlignment(SwingConstants.CENTER);
-    
-    // Add the labels to your form
-    add(logoLabel);
-    add(usernameLabel);
-    add(passwordLabel);
 
+    // Load and resize the images
+    ImageIcon logoIcon = new javax.swing.ImageIcon(getClass().getResource("images/moti.jpeg"));
+    ImageIcon usernameIcon = new javax.swing.ImageIcon(getClass().getResource("images/username.jpeg"));
+    ImageIcon passwordIcon = new javax.swing.ImageIcon(getClass().getResource("images/password.jpeg"));
+
+    // Set the images to the labels and scale them to the label's size
+    logo.setIcon(new ImageIcon(logoIcon.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT)));
+    username.setIcon(new ImageIcon(usernameIcon.getImage().getScaledInstance(username.getWidth(), username.getHeight(), Image.SCALE_DEFAULT)));
+    password.setIcon(new ImageIcon(passwordIcon.getImage().getScaledInstance(password.getWidth(), password.getHeight(), Image.SCALE_DEFAULT)));
     
-    
+    //create border
+    Border title_border;
+    title_border = BorderFactory.createMatteBorder(0, 0, 3, 0, yellow);
+    jLabel_title.setBorder(title_border);
 
     // Set the images to the labels and scale them to the label's size
     //logo.setIcon(new ImageIcon(logoIcon.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT)));
    // username.setIcon(new ImageIcon(usernameIcon.getImage().getScaledInstance(username.getWidth(), username.getHeight(), Image.SCALE_DEFAULT)));
    // password.setIcon(new ImageIcon(passwordIcon.getImage().getScaledInstance(password.getWidth(), password.getHeight(), Image.SCALE_DEFAULT)));
 
-}
+} 
 
     
 
@@ -82,6 +73,7 @@ public class LoginForm extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -100,6 +92,16 @@ public class LoginForm extends javax.swing.JFrame {
         password.setOpaque(true);
 
         jTextField_username.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField_username.setForeground(new java.awt.Color(153, 153, 153));
+        jTextField_username.setText("username");
+        jTextField_username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField_usernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_usernameFocusLost(evt);
+            }
+        });
         jTextField_username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_usernameActionPerformed(evt);
@@ -118,49 +120,66 @@ public class LoginForm extends javax.swing.JFrame {
         jButton_login.setForeground(new java.awt.Color(255, 255, 255));
         jButton_login.setText("Login");
 
-        jLabel_close.setFont(new java.awt.Font("Verdana", 0, 36)); // NOI18N
+        jLabel_close.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         jLabel_close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_close.setText("x");
+        jLabel_close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_closeMouseClicked(evt);
+            }
+        });
 
         jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.setForeground(new java.awt.Color(153, 153, 153));
+        jPasswordField1.setText("password");
+        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusLost(evt);
+            }
+        });
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, 353, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel_close, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton_login, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel_title, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(username, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField_username, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jCheckBox_password))))
-                                .addGap(33, 33, 33)))
-                        .addContainerGap())))
+                    .addComponent(jLabel_title, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel_close, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton_login, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                                        .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jCheckBox_password)
+                                        .addComponent(jTextField_username, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                                        .addComponent(jPasswordField1))))
+                            .addGap(19, 19, 19))))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel_close, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jLabel_title, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel_title, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -168,14 +187,15 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPasswordField1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jCheckBox_password)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addComponent(jButton_login, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(188, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -208,8 +228,69 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_usernameActionPerformed
 
     private void jCheckBox_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_passwordActionPerformed
-        
+        //show and hide password
+        if(jCheckBox_password.isSelected())
+        {
+            jPasswordField1.setEchoChar((char)0);
+        }
+        else
+        {
+            jPasswordField1.setEchoChar('*');
+        }
     }//GEN-LAST:event_jCheckBox_passwordActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jLabel_closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_closeMouseClicked
+        //close login page
+        System.exit(0);
+    }//GEN-LAST:event_jLabel_closeMouseClicked
+
+    private void jTextField_usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_usernameFocusGained
+        // clear text if 'username' is entered
+        if(jTextField_username.getText().trim().toLowerCase().equals("username"))
+        {
+            jTextField_username.setText("");
+            jTextField_username.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_jTextField_usernameFocusGained
+
+    private void jTextField_usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_usernameFocusLost
+        // display 'username' if the field is empty or = username
+        if(jTextField_username.getText().trim().toLowerCase().equals("username")||
+                jTextField_username.getText().trim().toLowerCase().equals(""))
+        {
+            jTextField_username.setText("username");
+            jTextField_username.setForeground(Color.gray);
+        }
+                  
+    }//GEN-LAST:event_jTextField_usernameFocusLost
+
+    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
+        // clear text if 'password' = text
+        
+        String password;
+        password = String.valueOf(jPasswordField1.getPassword());
+        if(password.trim().toLowerCase().equals("password"))
+        {
+            jPasswordField1.setText("");
+            jPasswordField1.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_jPasswordField1FocusGained
+
+    private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
+        // when passowrd focus is lost
+        String password;
+        password = String.valueOf(jPasswordField1.getPassword());
+        if(password.trim().toLowerCase().equals("password")||
+                password.trim().toLowerCase().equals(""))
+        {
+            jPasswordField1.setText("");
+            jPasswordField1.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_jPasswordField1FocusLost
 
     /**
      * @param args the command line arguments
