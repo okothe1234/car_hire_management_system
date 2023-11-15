@@ -4,6 +4,7 @@
  */
 package car_rental_management;
 
+import car_rental_management.classes.DB;
 import java.awt.Color;
 import static java.awt.Color.yellow;
 import java.awt.Image;
@@ -12,6 +13,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -48,6 +53,14 @@ public class LoginForm extends javax.swing.JFrame {
    // password.setIcon(new ImageIcon(passwordIcon.getImage().getScaledInstance(password.getWidth(), password.getHeight(), Image.SCALE_DEFAULT)));
 
 } 
+    
+     //function to display image in the right Jlabel sizes
+    public void displayImages(int width, int height, byte[] image_byte, JLabel label)
+    {
+        ImageIcon imageIco = new ImageIcon(image_byte);
+        Image image = imageIco.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        label.setIcon(new ImageIcon(image));
+    }
 
     
 
@@ -119,6 +132,11 @@ public class LoginForm extends javax.swing.JFrame {
         jButton_login.setFont(new java.awt.Font("Stencil", 0, 18)); // NOI18N
         jButton_login.setForeground(new java.awt.Color(255, 255, 255));
         jButton_login.setText("Login");
+        jButton_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_loginActionPerformed(evt);
+            }
+        });
 
         jLabel_close.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
         jLabel_close.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -291,6 +309,57 @@ public class LoginForm extends javax.swing.JFrame {
             jPasswordField1.setForeground(Color.gray);
         }
     }//GEN-LAST:event_jPasswordField1FocusLost
+
+    private void jButton_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_loginActionPerformed
+        String userName = jTextField_username.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+        
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        String query = "SELECT * FROM `user` WHERE `username` = ? AND `password` = ?";
+        
+        //validate the entries
+        if(userName.trim().toLowerCase().equals("username") ||password.trim().toLowerCase().equals("password"))
+                {
+                    System.out.println("Enter a Valid unsername and password");
+                }
+        else
+        {
+            try
+            {
+                ps = DB.getConnection().prepareStatement(query);
+                ps.setString(1, userName);
+                ps.setString(2, password);
+                rs = ps.executeQuery();
+            
+                if(rs.next())
+                {
+                  //System.out.println("Login");
+                  //diplay dashboard form after login
+                     
+                    //display username on dashboard
+                    DashboardForm.jLabel_username.setText(rs.getString("username"));
+                    //display profile picture on dashboard 
+                    displayImages(DashboardForm.jLabel_userprofilepic.getWidth(), DashboardForm.jLabel_userprofilepic.getHeight(), rs.getBytes("image"), DashboardForm.jLabel_userprofilepic);
+                    
+                    //minimize LoginForm
+                    this.dispose();
+                }
+                else
+                {
+                   System.err.println("Invalid Username or Password");
+                }
+            }
+            catch (SQLException ex)
+                    {
+                        System.err.println(ex.getMessage());
+                    }
+               
+                
+            
+        }
+    }//GEN-LAST:event_jButton_loginActionPerformed
 
     /**
      * @param args the command line arguments
